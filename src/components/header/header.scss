@@ -1,0 +1,31 @@
+@import '../../variables.scss';
+
+.header {
+  min-height: 50px;
+  border-bottom: 1px solid $divider-color;
+  padding: 30px 20px 0;
+  display: flex;
+  background-color: $white-bg;
+  box-shadow: $white-container-shadow;
+
+  h1 {
+    font-size: 20px;
+    color: #5e10b1;
+    line-height: 50px;
+    font-weight: normal;
+    flex: 2;
+  }
+
+  ul{
+    list-style-type: none;
+    flex: 12;
+
+    li{
+      display: inline-block;
+      margin: 0 20px;
+      line-height: 50px;
+      font-weight: bold;
+    }
+  }
+  
+}

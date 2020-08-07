@@ -1,0 +1,29 @@
+@import '../../variables.scss';
+
+.document-container {
+  display: flex;
+  flex-direction: row;
+
+  .blotter {
+    margin-right: 20px; 
+    
+    span {
+      display: inline-block;
+    }
+    .outer {
+      position: relative;
+      width: 105px;
+      background-color: $secondarySpotlight-bg;
+    }
+  
+    .inner {
+      background-color: $primary-call-action;
+    }
+  
+    .totalProgress {
+      position: absolute;
+      left: 10px;
+      color: $white;
+    }
+  }
+}

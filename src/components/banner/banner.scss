@@ -1,0 +1,18 @@
+@import '../../variables.scss';
+
+.common-banner {
+  padding: 30px 20px;
+  background-color: $banner-1;
+  text-align: center;
+  box-shadow: $white-container-shadow;
+  border-top: $divider-color;
+  
+  h1 {
+    margin-bottom: 14px;
+    font-size: 35px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+}

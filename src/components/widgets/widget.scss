@@ -1,0 +1,29 @@
+@import '../../variables.scss';
+
+.widget-container{
+  text-align: center;
+  flex: 1;
+  flex-basis: calc(33.33%-16px);
+  max-width: calc(33.33%-16px);
+  padding: 30px 40px;
+  margin:0 8px;
+  background-color: $white;
+  box-shadow: $white-container-shadow;
+  position: relative;
+
+  img {
+    width: 75px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: $heading-theme;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin-bottom: 40px;
+  }
+  
+}
