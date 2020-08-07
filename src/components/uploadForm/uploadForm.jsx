@@ -10,7 +10,7 @@ const UploadForm = (props) => {
     onUploadProgress: function(progressEvent) {
       let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
       tempData.isUploadedProgress = percentCompleted
-      tempData.previewUrl = Math.random()
+      tempData.previewUrl = [Math.random()]
       const abc = [...documentData, tempData]
       setDocumentData([...abc])
     },
@@ -18,8 +18,7 @@ const UploadForm = (props) => {
   }
 
   const uploadDoc = (docData) => {
-    const { name, description, fileName } = docData
-    const { name:filename } = fileName[0]
+    const { name, description } = docData
     const uploadDate = new Date().valueOf()
     tempData = {
       id: Math.floor(Math.random()*90000) + 10000,
@@ -28,22 +27,23 @@ const UploadForm = (props) => {
       uploadDate: uploadDate,
       isUploadedProgress: 0,
       previewUrl: null,
-      type: filename.split('.').pop().toLowerCase()
     }
    
     const bodyFormData = new FormData();
     uploadFormMetaData.forEach((field) => {
       const {name, type} = field
       if(type === 'file'){
+        const files = docData[name]
         if(docData[name]){
-          bodyFormData.append(name, docData[name][0]); 
+          files.forEach((file, index) => {
+            bodyFormData.append(name+index, file);
+          })
           bodyFormData.set('uploadedDate', uploadDate);
         }
       }else{
         bodyFormData.set(name, docData[name]);
       }
     })
-    
     xhrPost('/document', bodyFormData, config).then((res) => {
       setDocumentData([...res.data.documents])
     })

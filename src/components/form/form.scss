@@ -46,6 +46,11 @@
 				float: left;
 				margin-right: 20px;
 			}	
+
+			.content {
+				float: left;
+				width: 260px;
+			}
 			
 			.description {
 				margin-bottom: 10px;
@@ -58,11 +63,14 @@
 
 			.attachment {
 				span:first-child {
-					float:left;
+					float: left;
+					min-height: 45px;
+					line-height: 45px;
 					width: 229px;
 					display: inline-block;
 					word-break: break-all;
 					white-space: break-spaces;
+					border-bottom: 1px solid $divider-color
 				}
 
 				span:last-child {

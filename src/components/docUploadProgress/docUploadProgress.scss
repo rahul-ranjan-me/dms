@@ -16,11 +16,15 @@
   font-weight: bold;
 }
 
+.download-btn {
+  margin-right: 20px;
+}
+
 .upload-progress-widget {
   position: absolute;
   bottom: -25px;
   right: 0;
-  height: 150px;
+  min-height: 150px;
   width: 400px;
   background-color: $progress-indicator-bg;
   border-top-left-radius: 10px;

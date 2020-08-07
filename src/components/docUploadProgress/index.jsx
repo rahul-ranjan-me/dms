@@ -1,7 +1,6 @@
 import React, {useContext, useState, Fragment} from 'react'
 import GlobalContext from '../../components/globalState/globalContext'
 import properties from '../../properties'
-import {AnchorLink} from '../actionButton/index'
 
 import './docUploadProgress.scss'
 
@@ -17,6 +16,14 @@ const DocUploadProgress = () => {
     }
   }
 
+  const getPreviewUrls = (url, i) => {
+    return (
+      <Fragment key={`Download file ${i}`} >
+        <a target="_blank" href={`${properties.apiUrl}${url}`} className="btn btn-primary download-btn">Download file {i}</a>
+      </Fragment>
+    )
+  }
+
   const progressIndicator = () => {
     const { name, isUploadedProgress, previewUrl } = documentData[documentData.length-1]
     return (
@@ -29,8 +36,8 @@ const DocUploadProgress = () => {
           
           <h3>File Name: <span>{name}</span></h3>
           { isUploadedProgress !== 100 ?
-            showLoader(isUploadedProgress) :
-            <a href={`${properties.apiUrl}${previewUrl}`} target="_blank" className="btn btn-primary">Download File</a>
+            showLoader(isUploadedProgress) : 
+            previewUrl.map(getPreviewUrls)
           }
         </div>
       </Fragment>

@@ -3,7 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import GlobalContext from '../../components/globalState/globalContext'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import {xhrGet, xhrPost} from '../../xhr'
+import {xhrGet} from '../../xhr'
 import UploadForm from '../../components/uploadForm/uploadForm'
 import properties from '../../properties'
 import './document.scss'
@@ -15,8 +15,7 @@ export default class Document extends Component{
       { headerName: "Name", field: "name", width: 137, suppressSizeToFit: true, cellRenderer: this.createLink },
       { headerName: "Description", field: "description", width: 137, suppressSizeToFit: true },
       { headerName: "Upload date", field: "uploadDate", width: 137, suppressSizeToFit: true, cellRenderer: this.formatDate },
-      { headerName: "Type", field: "type", width: 137, suppressSizeToFit: true },
-      { headerName: "Download", field: "previewUrl", width: 137, suppressSizeToFit: true, cellRenderer: this.downloadLink }
+      { headerName: "Download", field: "previewUrl", width: 275, suppressSizeToFit: true, cellRenderer: this.downloadLink }
     ]
     this.onGridReady = this.onGridReady.bind(this)
   }
@@ -35,11 +34,9 @@ export default class Document extends Component{
             documentData = next.documentData,
             documentDataLength = documentData.length,
             updatedNode = documentData[documentDataLength-1]
-      
       this.api.forEachNode(function(node) {
         rowData.push(node.data);
       });
-
       if(rowData.length === documentDataLength){
         let itemsToUpdate = [];
         const { isUploadedProgress, previewUrl } = updatedNode
@@ -51,7 +48,9 @@ export default class Document extends Component{
             itemsToUpdate.push(data)
           }
         }.bind(this))
+        
         this.api.applyTransaction({ update: itemsToUpdate });
+        this.api.resetRowHeights()
       }else if(!rowData.length){
         this.api.applyTransaction({ add: documentData })
       }else{
@@ -80,16 +79,31 @@ export default class Document extends Component{
           <span class="inner" style=width:${isUploadedProgress}%>&nbsp;</span>
           <span class="totalProgress">${isUploadedProgress}%</span>
         </span>` : 
-        `<a target="_blank" href=${properties.apiUrl}${previewUrl}>Download</a>`
+        this.getPreviewUrls(previewUrl)
     )
   }
 
-  formatDate = (dateStr) => {
+  getPreviewUrls(previewUrl){
+    let urls = ''
+    const {apiUrl} = properties
+    previewUrl.length < 2 ? 
+      urls = `<a target="_blank" href=${apiUrl}${previewUrl}>Download file</a>` :
+      (previewUrl.forEach((curUrl, i) => {
+        urls += `<a target="_blank" key=${i} href=${apiUrl}${curUrl}>Download file ${i}</a> <br />`
+      }))
+    return urls
+  }
+
+  formatDate(dateStr){
     const nowDate = new Date(Number(dateStr.data.uploadDate))
     const fixedPlace = (val) => {
       return val < 10 ? '0'+val : val
     }
     return `${fixedPlace(nowDate.getDate())}/${fixedPlace(nowDate.getMonth())}/${fixedPlace(nowDate.getFullYear())}`
+  }
+
+  setHeight(params){
+    return params.data.previewUrl ? params.data.previewUrl.length * 40 : 40
   }
 
   render(){
@@ -101,9 +115,11 @@ export default class Document extends Component{
               onGridReady={this.onGridReady}
               rowData={[]}
               animateRows
+              getRowHeight={this.setHeight}
               columnDefs={this.columnDefs}
               defaultColDef={{
                 sortable: true,
+                resizable: true
               }}>
             </AgGridReact>
           </div>

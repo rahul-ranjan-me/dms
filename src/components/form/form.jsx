@@ -41,19 +41,29 @@ const Form = (props) => {
 		const {name} = item
 		
 		const onFileUpload = (files) => {
-			const length = attachments.length + files.length
-			if(length > 1){
-				setResType('error-type-file')
-				setValidation(['Sorry, maximum of 1 file can be uploaded.'])
+			let totalSize = 0,
+						validation = []
+			files.forEach((file, i) => {
+				const {size, name} = file
+				const val = size > 250 * 1000 * 1000 ? validation.push(`${name} is above 250 MB`) : null
+				totalSize += size
+			})
+			if(totalSize > 5 * 1000 * 1000 * 1000) {
+				validation.push(`Maximum upload size allowed is 5 GB`)
+			}
+			if(validation.length) {
+				setValidation(validation);
 				return
 			}
+
 			setResType('')
 			formResponse[name] = files
 			setAttachments(files)
 		}
 
-		const onFileRemove = () => {
-			setAttachments([])
+		const onFileRemove = (index) => {
+			attachments.splice(index, 1)
+			setAttachments([...attachments])
 		}
 
 		return (
@@ -143,6 +153,7 @@ const Form = (props) => {
 		}else{
 			setValidation([])
 			onSubmit(formResponse)
+			setAttachments([])
 			myFormRef.current.reset()
 			formResponse = {}
 		}
