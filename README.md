@@ -7,7 +7,7 @@
 
 **`yarn install`**
 
-**`yarn start` **
+**`yarn start`**
 
 Backend application is all setup and started on port 3001
 
