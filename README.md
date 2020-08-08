@@ -32,7 +32,7 @@ Ok, that's it! Your application is ready. Open [http://localhost:3000](http://lo
 
 - Home page is to demonstrate the file upload progress functionality with some quick UI widgets
 - Document page consist of two functionalities
-* Upload multiple documents
+* Upload multiple documents (either by selecting on click of button or drag & drop)
 * Once submitted the progress can be seen in the adjoining table with progress indicator
 * Once files are uploaded, you can preview or download with respective urls from the grid
 * Once files are submitted, you can navigate to other pages, and the progress can be shown in the progress indicator widget on bottom right of the page
