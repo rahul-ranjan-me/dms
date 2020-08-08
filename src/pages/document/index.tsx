@@ -33,7 +33,7 @@ class Document extends Component{
       { headerName: "Name", field: "name", width: 137, suppressSizeToFit: true },
       { headerName: "Description", field: "description", width: 137, suppressSizeToFit: true },
       { headerName: "Upload date", field: "uploadDate", width: 137, suppressSizeToFit: true, cellRenderer: this.formatDate },
-      { headerName: "Download", field: "previewUrl", width: 250, suppressSizeToFit: true, cellRenderer: this.downloadLink },
+      { headerName: "Download", field: "previewUrl", width: 273, suppressSizeToFit: true, cellRenderer: this.downloadLink },
     ]
     this.onGridReady = this.onGridReady.bind(this)
     this.showPreview = this.showPreview.bind(this)

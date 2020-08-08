@@ -6,6 +6,7 @@
   
   .blotter {
     margin-right: 20px; 
+    flex: 2;
     
     span {
       display: inline-block;
@@ -17,7 +18,7 @@
 
     .outer {
       position: relative;
-      width: 185px;
+      width: 255px;
       background-color: $secondarySpotlight-bg;
     }
   
@@ -59,5 +60,15 @@
       height: 100%;
       background: $white;
     }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .document-container {
+    flex-direction: column;
+  }
+
+  .upload-form{
+    margin-top: 20px;
   }
 }

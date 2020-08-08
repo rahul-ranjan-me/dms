@@ -25,5 +25,10 @@
   p {
     margin-bottom: 40px;
   }
-  
+}
+
+@media only screen and (max-width: 600px) {
+  .widget-container{
+    margin-bottom: 20px;
+  }
 }
