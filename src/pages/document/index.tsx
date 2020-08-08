@@ -100,7 +100,7 @@ class Document extends Component{
     })
   }
 
-  downloadLink = (val) => {
+  downloadLink = (val:any) => {
     const {previewUrl, isUploadedProgress} = val.data
     return (
       isUploadedProgress !== 100 ? 
@@ -130,7 +130,7 @@ class Document extends Component{
     return div.appendChild(downloadSpan)
   }
 
-  getPreviewUrls(previewUrl, val){
+  getPreviewUrls(previewUrl:any, val:any){
     const { apiUrl } = properties
     const div = document.createElement('div')
     if(previewUrl.length < 2){

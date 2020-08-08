@@ -10,6 +10,7 @@ const Document = lazy(() => import('./pages/document/index'));
 
 const App = () => {
   const location = useLocation();
+
   const pages = [
     {
       pageLink: '/',
