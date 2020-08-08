@@ -19,7 +19,7 @@ const DocUploadProgress = () => {
   const getPreviewUrls = (url, i) => {
     return (
       <Fragment key={`Download file ${i}`} >
-        <a target="_blank" href={`${properties.apiUrl}${url}`} className="btn btn-primary download-btn">Download file {i}</a>
+        <a target="_blank" rel="noopener noreferrer" href={`${properties.apiUrl}${url}`} className="btn btn-primary download-btn">Download file {i}</a>
       </Fragment>
     )
   }
@@ -56,9 +56,9 @@ const DocUploadProgress = () => {
   }
 
   return(
-    <div>
+    <Fragment>
       {documentData && documentData.length ? progressIndicator() : null}
-    </div>
+    </Fragment>
   )
 }
 

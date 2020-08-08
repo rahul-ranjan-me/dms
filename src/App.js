@@ -4,9 +4,9 @@ import {Route, Redirect, Switch, useLocation} from 'react-router-dom';
 import GlobalState from './components/globalState/index'
 import Header from './components/header/index'
 import './App.scss';
-const Home = lazy(() => import('./pages/home'));
-const Blog = lazy(() => import('./pages/blog'));
-const Document = lazy(() => import('./pages/document'));
+const Home = lazy(() => import('./pages/home/index'));
+const Blog = lazy(() => import('./pages/blog/index'));
+const Document = lazy(() => import('./pages/document/index'));
 
 const App = () => {
   const location = useLocation();
@@ -34,7 +34,7 @@ const App = () => {
     <GlobalState>
       <div className="App">
         <Header pages={pages} />
-        <Suspense fallback={<div />}>
+        <Suspense fallback={<div>Loading...</div>}>
           <Switch location={location}>
             {pages.map((page, index) => {
               return (

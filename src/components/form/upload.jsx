@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import File from './file'
+import properties from '../../properties'
 import uploadImg from '../../images/upload.png'
 import doneImg from '../../images/done.png'
 import removeImg from '../../images/remove.png'
@@ -23,7 +23,7 @@ const Upload = (props) => {
   const { attachments, className, onUpload, onRemove } = props
       , { getRootProps, getInputProps, isDragActive, open } = useDropzone({
           onDrop: useCallback((onUpload), [])
-        , accept: File.supportedTypes.join(',')
+        , accept: properties.supportedTypes.join(',')
         , noClick: true
         , noKeyboard: true     
         })

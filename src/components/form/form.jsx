@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Button } from '../actionButton/index'
 import { Upload } from './upload'
+import properties from '../../properties'
 import './form.scss'
 let formResponse = {}
 
@@ -39,18 +40,29 @@ const Form = (props) => {
 
 	const createFile = (item, index) => {
 		const {name} = item
-		
+				, { 
+						uploadSizeLimitPerFile, 
+						uploadSizeLimitTotal, 
+						uploadSizeLimitInMB, 
+						uploadSizeLimitInGB
+					} = properties
+					
 		const onFileUpload = (files) => {
 			let totalSize = 0,
-						validation = []
+					validation = []
 			files.forEach((file, i) => {
 				const {size, name} = file
-				const val = size > 250 * 1000 * 1000 ? validation.push(`${name} is above 250 MB`) : null
+				
+				if(size > uploadSizeLimitPerFile)
+					validation.push(`${name} is above ${uploadSizeLimitInMB}`) 
+
 				totalSize += size
 			})
-			if(totalSize > 5 * 1000 * 1000 * 1000) {
-				validation.push(`Maximum upload size allowed is 5 GB`)
+
+			if(totalSize > uploadSizeLimitTotal) {
+				validation.push(`Maximum upload size allowed is ${uploadSizeLimitInGB}`)
 			}
+
 			if(validation.length) {
 				setValidation(validation);
 				return

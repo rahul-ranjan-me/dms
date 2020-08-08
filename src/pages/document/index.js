@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { AgGridReact } from 'ag-grid-react';
-import GlobalContext from '../../components/globalState/globalContext'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import FileViewer from 'react-file-viewer';
-import {xhrGet} from '../../xhr'
+import GlobalContext from '../../components/globalState/globalContext'
+import { xhrGet } from '../../xhr'
 import UploadForm from '../../components/uploadForm/uploadForm'
 import properties from '../../properties'
 import './document.scss'
