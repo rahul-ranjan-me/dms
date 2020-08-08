@@ -1,4 +1,6 @@
+# Running application link
 
+http://dms-frontent-1265089652.us-east-1.elb.amazonaws.com/
 
 # Running the project
 
@@ -18,7 +20,7 @@ Backend application is all setup and started on port 3001
 **`yarn install`**
 
 ### Properties update in Frontend repo
-- Go to your `{frontend repo}/src/properties.js`
+- Go to your `{frontend repo}/src/properties.js` for MIME types, document size configuration updates
 - Update `REACT_APP_API_BASE_PATH` of `{frontend repo}/.env` file with backend application URL
 
 **`yarn start`**
@@ -36,4 +38,14 @@ Ok, that's it! Your application is ready. Open [http://localhost:3000](http://lo
 * Once submitted the progress can be seen in the adjoining table with progress indicator
 * Once files are uploaded, you can preview or download with respective urls from the grid
 * Once files are submitted, you can navigate to other pages, and the progress can be shown in the progress indicator widget on bottom right of the page
+
+# App screenshots
+
+![screenshot](
+https://raw.githubusercontent.com/rahul-ranjan-me/dms/master/home.png)
+
+![screenshot](
+https://raw.githubusercontent.com/rahul-ranjan-me/dms/master/image.png)
+
+
 
