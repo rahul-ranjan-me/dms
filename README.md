@@ -37,7 +37,3 @@ Ok, that's it! Your application is ready. Open [http://localhost:3000](http://lo
 * Once files are uploaded, you can preview or download with respective urls from the grid
 * Once files are submitted, you can navigate to other pages, and the progress can be shown in the progress indicator widget on bottom right of the page
 
-# Notes
-
-- All functionalities are covered
-- Test cases are not completed due to the time constraints
