@@ -3,27 +3,27 @@
 # Running the project
 
 ## DMS Backend repo. clone, install and setup
-### `git clone https://github.com/rahul-ranjan-me/dms-node.git`
+**`git clone https://github.com/rahul-ranjan-me/dms-node.git`**
 
-### `yarn install`
+**`yarn install`**
 
-### `yarn start` 
+**`yarn start` **
 
 Backend application is all setup and started on port 3001
 
 
 ## DMS Frontend repo. clone, install and setup
-### `git clone https://github.com/rahul-ranjan-me/dms.git`
+**`git clone https://github.com/rahul-ranjan-me/dms.git`**
 
-### `yarn install`
+**`yarn install`**
 
 ### Properties update in Frontend repo
 - Go to your `{frontend repo}/src/properties.js`
 - Update `REACT_APP_API_BASE_PATH` of `{frontend repo}/.env` file with backend application URL
 
-### `yarn start`
+**`yarn start`**
 
-### `yarn start`
+**`yarn start`**
 
 Ok, that's it! Your application is ready. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
@@ -39,5 +39,5 @@ Ok, that's it! Your application is ready. Open [http://localhost:3000](http://lo
 
 # Notes
 
--- All functionalities are covered
--- Test cases are not completed due to the time constraints
+- All functionalities are covered
+- Test cases are not completed due to the time constraints
