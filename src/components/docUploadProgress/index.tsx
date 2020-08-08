@@ -1,8 +1,12 @@
 import React, {useContext, useState, Fragment} from 'react'
-import GlobalContext from '../../components/globalState/globalContext'
+import GlobalContext from '../globalState/globalContext'
 import properties from '../../properties'
 
 import './docUploadProgress.scss'
+
+interface DocUploadProgress {
+
+}
 
 const DocUploadProgress = () => {
   const { documentData } = useContext(GlobalContext)
@@ -16,7 +20,7 @@ const DocUploadProgress = () => {
     }
   }
 
-  const getPreviewUrls = (url, i) => {
+  const getPreviewUrls = (url:String, i:Number) => {
     return (
       <Fragment key={`Download file ${i}`} >
         <a target="_blank" rel="noopener noreferrer" href={`${properties.apiUrl}${url}`} className="btn btn-primary download-btn">Download file {i}</a>
@@ -28,10 +32,10 @@ const DocUploadProgress = () => {
     const { name, isUploadedProgress, previewUrl } = documentData[documentData.length-1]
     return (
       <Fragment>
-        <div className="file-upload-progress-button" onClick={() => switchState('show')}>Show upload progress</div>
+        <div className="file-upload-progress-button" onClick={() => switchState()}>Show upload progress</div>
 
         <div className={`upload-progress-widget ${showProgress}`}>
-          <span className="hide-progress" onClick={() => switchState('hide')}>X</span>
+          <span className="hide-progress" onClick={() => switchState()}>X</span>
           <h2>File upload progress indicator</h2>
           
           <h3>File Name: <span>{name}</span></h3>
@@ -44,7 +48,7 @@ const DocUploadProgress = () => {
     )
   }
 
-  const showLoader = (isUploadedProgress) => {
+  const showLoader = (isUploadedProgress:Number) => {
     return(
       <div className="progress-indicator">
         <span className="outer">

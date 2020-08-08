@@ -3,23 +3,31 @@ import { Button } from '../actionButton/index'
 import { Upload } from './upload'
 import properties from '../../properties'
 import './form.scss'
+
+interface Form{
+  formResponse: {
+		label: any
+	}
+	validation: any
+}
+
 let formResponse = {}
 
-const Form = (props) => {
+const Form = (props: { fields: any, onSubmit: Function}) => {
 	const { fields, onSubmit } = props
-			, myRefs= []
-			, myFormRef = useRef()
-			, calculateChange = (index, name) => {
+			, myRefs:any[] = []
+			, myFormRef:any = useRef()
+			, calculateChange = (index:any, name:any) => {
 					formResponse[name] = myRefs[index].value
 				}
 			, [ validation, setValidation ] = useState([])
 			, [ attachments, setAttachments ] = useState([])
 			, [ resType, setResType ] = useState('')
-			, isValid = (label) => {
+			, isValid:Function = (label:never) => {
 					return validation.length > 0 && validation.indexOf(label) !== -1 ? 'error-input' : null
 				}
 
-	const createInput = (item, index, type) => {
+	const createInput = (item:{name: string, label: string}, index:any, type:any) => {
 		const {name, label} = item
 		
 		return (
@@ -38,7 +46,7 @@ const Form = (props) => {
 		)
 	}
 
-	const createFile = (item, index) => {
+	const createFile = (item:{name: string}, index:number) => {
 		const {name} = item
 				, { 
 						uploadSizeLimitPerFile, 
@@ -47,10 +55,10 @@ const Form = (props) => {
 						uploadSizeLimitInGB
 					} = properties
 					
-		const onFileUpload = (files) => {
+		const onFileUpload = (files:any) => {
 			let totalSize = 0,
-					validation = []
-			files.forEach((file, i) => {
+					validation:any = []
+			files.forEach((file:File) => {
 				const {size, name} = file
 				
 				if(size > uploadSizeLimitPerFile)
@@ -73,7 +81,7 @@ const Form = (props) => {
 			setAttachments(files)
 		}
 
-		const onFileRemove = (index) => {
+		const onFileRemove = (index:number) => {
 			attachments.splice(index, 1)
 			setAttachments([...attachments])
 		}
@@ -90,7 +98,7 @@ const Form = (props) => {
 		)
 	}
 
-	const createTextarea = (item, index) => {
+	const createTextarea = (item:{name: string, label: string}, index:number) => {
 		const {name, label} = item
 		
 		return (
@@ -106,9 +114,9 @@ const Form = (props) => {
 		)
 	}
 
-	const createSelect = (item, index) => {
+	const createSelect = (item:{name: string, label: string, options:any}, index:number) => {
 		const { options, name, label } = item
-				, createOption = (option, key) => {
+				, createOption = (option:string, key:number) => {
 						return <option value={option} key={`${options}${key}`}>{option}</option>
 					}
 		return (
@@ -127,7 +135,7 @@ const Form = (props) => {
 		)
 	}
 
-	const renderFormFields = (item, index) => {
+	const renderFormFields = (item:any, index:number) => {
 		switch(item.type){
 			case 'text':
 				return createInput(item, index, 'text')
@@ -145,7 +153,7 @@ const Form = (props) => {
 	}
 
 	const validate = () => {
-		const errorArr = []
+		const errorArr:String[] = []
 		fields.forEach((field) => {
 			if(field.required && !formResponse[field.name]){
 				errorArr.push(`${field.label} is a required field.`)
@@ -159,7 +167,7 @@ const Form = (props) => {
 
 	const submitForm = (e) => {
 		e.preventDefault()
-		const isValid = validate()
+		const isValid:any = validate()
 		if(isValid.length > 0){
 			setValidation(isValid)
 		}else{
@@ -188,8 +196,8 @@ const Form = (props) => {
 			<div className="form-fields">
 				{ fields.map(renderFormFields) }
 			</div>
-			<Button buttonType="reset" type="secondary" displayText="Reset" />
-			<Button buttonType="submit" type="primary" displayText="Submit" />
+			<Button buttonType="reset" type="secondary" displayText="Reset" className="reset" />
+			<Button buttonType="submit" type="primary" displayText="Submit" className="submit" />
 		</form>
 	)
 }

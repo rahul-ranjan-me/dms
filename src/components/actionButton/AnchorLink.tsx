@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 import './buttons.scss'
 
-const AnchorLink = (props) => {
+const AnchorLink = (props: {to:string, displayText: string, type:string, onClick: any, className: string}) => {
   const {to, displayText, type, onClick, className} = props
   return(
     <Link 

@@ -7,8 +7,17 @@ import removeImg from '../../images/remove.png'
 
 import './form.scss'
 
+interface Upload{
+  props: {
+    attachments: any[],
+    className: string,
+    onUpload: Function,
+    onRemove: Function
+  }
+}
+
 const Upload = (props) => {
-  const AddFile = (file, idx, onRemove) => {
+  const AddFile = (file:File, idx:Number, onRemove:Function) => {
     const { name } = file
     return (
       <div key={`${name}-${idx}`} className="attachment">
@@ -37,7 +46,7 @@ const Upload = (props) => {
             <div className="content">
               <div className="description">Thank you, You've selected the following document</div>
               <div className="sub-description">
-                { attachments.map((file, idx) => AddFile(file, idx, onRemove))}
+                { attachments.map((file:File, idx:Number) => AddFile(file, idx, onRemove))}
               </div>
             </div>
           </div>

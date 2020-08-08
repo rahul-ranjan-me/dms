@@ -2,14 +2,31 @@ import React, { Component } from 'react'
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import FileViewer from 'react-file-viewer';
+import * as FileViewer from 'react-file-viewer';
 import GlobalContext from '../../components/globalState/globalContext'
 import { xhrGet } from '../../xhr'
 import UploadForm from '../../components/uploadForm/uploadForm'
 import properties from '../../properties'
 import './document.scss'
 
-export default class Document extends Component{
+interface Document {
+  columnDefs: Array<any>
+  api: {
+    forEachNode: Function,
+    forEachNodeAfterFilterAndSort: Function
+    applyTransaction: Function
+    resetRowHeights: Function
+  }
+  state: {
+    type: any,
+    file: any
+  }
+  node: {
+    data: Object
+  }
+}
+
+class Document extends Component{
   constructor(props){
     super(props)
     this.columnDefs = [
@@ -34,17 +51,17 @@ export default class Document extends Component{
     })
   }
   
-  componentWillReceiveProps(prev, next){
+  componentWillReceiveProps(prev, next:any){
     if(this.api){
-      const rowData = [],
+      const rowData : String[] = [],
             documentData = next.documentData,
             documentDataLength = documentData.length,
             updatedNode = documentData[documentDataLength-1]
-      this.api.forEachNode(function(node) {
+      this.api.forEachNode((node) => {
         rowData.push(node.data);
       });
       if(rowData.length === documentDataLength){
-        let itemsToUpdate = [];
+        let itemsToUpdate: String[] = [];
         const { isUploadedProgress, previewUrl } = updatedNode
         this.api.forEachNodeAfterFilterAndSort(function(rowNode, index) {
           if(index === documentDataLength-1){
@@ -95,7 +112,7 @@ export default class Document extends Component{
     )
   }
 
-  createAnchorNodes(apiUrl, link, index){
+  createAnchorNodes(apiUrl:String, link:String, index:any):Node{
     const div = document.createElement('div')
     const downloadSpan = document.createElement('span')
     downloadSpan.setAttribute('class', 'prev-down')
@@ -117,7 +134,7 @@ export default class Document extends Component{
     const { apiUrl } = properties
     const div = document.createElement('div')
     if(previewUrl.length < 2){
-      div.appendChild(this.createAnchorNodes(apiUrl, previewUrl[0]))
+      div.appendChild(this.createAnchorNodes(apiUrl, previewUrl[0], null))
     }else{
       previewUrl.forEach((curUrl, i) => {
         div.appendChild(this.createAnchorNodes(apiUrl, curUrl, i))
@@ -154,9 +171,6 @@ export default class Document extends Component{
               animateRows
               getRowHeight={this.setHeight}
               columnDefs={this.columnDefs}
-              components = {{
-                'createLink': this.createLink
-              }}
               defaultColDef={{
                 sortable: true,
                 resizable: true
@@ -183,3 +197,5 @@ export default class Document extends Component{
     )
   }
 }
+
+export default Document
