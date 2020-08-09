@@ -1,5 +1,6 @@
-import axios from 'axios'
 import properties from './properties'
+
+import axios from 'axios'
 
 const xhrGet = (url, config) => {
   return axios.get(`${properties.apiUrl}${url.replace(/^\/+/, '')}`, config)

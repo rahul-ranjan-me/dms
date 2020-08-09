@@ -1,9 +1,11 @@
-import React, { lazy, Suspense } from 'react';
-import { Route, Redirect, Switch, useLocation } from 'react-router-dom';
-
 import GlobalState from './components/globalState/index'
 import Header from './components/header/index'
+
+import React, { lazy, Suspense } from 'react';
+import { Route, Redirect, Switch, useLocation } from 'react-router-dom'
+
 import './App.scss';
+
 const Home = lazy(() => import('./pages/home/index'));
 const Blog = lazy(() => import('./pages/blog/index'));
 const Document = lazy(() => import('./pages/document/index'));
