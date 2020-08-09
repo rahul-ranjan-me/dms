@@ -126,5 +126,30 @@
 
 	.btn {
 		margin-right: 20px;
+		&:last-child{
+			margin-right: 0;
+		}
+	}
+}
+
+@media only screen and (max-width: 600px) {
+  input, select, textarea{
+		min-width: 95% !important;
+	}
+
+	.upload{
+		width: 85% !important;
+	}
+
+	.upload-form .form-fields .upload .content{
+		width: 225px;
+	}
+
+	.upload-form .form-fields .upload button{
+		margin-left: 74px;
+	}
+
+	.upload-form .form-fields .upload .attachment span:first-child{
+		width: 190px;
 	}
 }

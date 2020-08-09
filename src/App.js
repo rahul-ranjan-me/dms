@@ -1,5 +1,5 @@
-import React, {lazy, Suspense} from 'react';
-import {Route, Redirect, Switch, useLocation} from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { Route, Redirect, Switch, useLocation } from 'react-router-dom';
 
 import GlobalState from './components/globalState/index'
 import Header from './components/header/index'

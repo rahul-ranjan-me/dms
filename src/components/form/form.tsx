@@ -28,7 +28,7 @@ const Form = (props: { fields: any, onSubmit: Function}) => {
 				}
 
 	const createInput = (item:{name: string, label: string}, index:any, type:any) => {
-		const {name, label} = item
+		const { name, label } = item
 		
 		return (
 			<div className="form-field" key={`${name}${index}`}>
@@ -47,7 +47,7 @@ const Form = (props: { fields: any, onSubmit: Function}) => {
 	}
 
 	const createFile = (item:{name: string}, index:number) => {
-		const {name} = item
+		const { name } = item
 				, { 
 						uploadSizeLimitPerFile, 
 						uploadSizeLimitTotal, 

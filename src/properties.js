@@ -10,7 +10,8 @@ const properties = {
     'application/zip',
     'video/mp4',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-  ]
+  ],
+  progressNotificationTimeout: 15000
 }
 
 export default properties

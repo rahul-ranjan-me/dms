@@ -31,4 +31,9 @@
   .widget-container{
     margin-bottom: 20px;
   }
+
+  .widget-container{
+    max-width: 100%;
+    flex-basis: content;
+  }
 }

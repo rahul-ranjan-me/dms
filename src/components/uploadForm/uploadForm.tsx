@@ -1,28 +1,27 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import GlobalContext from '../globalState/globalContext'
 import Form from '../form/form'
-import {xhrPost} from '../../xhr'
+import { xhrPost } from '../../xhr'
 
-interface UploadForm{
-}
+interface UploadForm {}
 
 const UploadForm = () => {
-  const { documentData, setDocumentData } = useContext(GlobalContext)
+  const { documentData, setDocumentData, setUploadProgress } = useContext(GlobalContext)
   let tempData:any = {}
   const config = {
     onUploadProgress: function(progressEvent) {
       let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
       tempData.isUploadedProgress = percentCompleted
       tempData.previewUrl = [Math.random()]
-      const abc = [...documentData, tempData]
-      setDocumentData([...abc])
+      setDocumentData([...documentData, tempData])
     },
     headers: {'Content-Type': 'multipart/form-data' }
   }
 
   const uploadDoc = (docData) => {
     const { name, description } = docData
-    const uploadDate:any = new Date().valueOf()
+        , uploadDate:any = new Date().valueOf()
+        , bodyFormData = new FormData()
     tempData = {
       id: Math.floor(Math.random()*90000) + 10000,
       name: name,
@@ -31,10 +30,10 @@ const UploadForm = () => {
       isUploadedProgress: 0,
       previewUrl: null,
     }
-   
-    const bodyFormData = new FormData();
+  
     uploadFormMetaData.forEach((field) => {
       const {name, type} = field
+
       if(type === 'file'){
         const files = docData[name]
         if(docData[name]){
@@ -46,7 +45,9 @@ const UploadForm = () => {
       }else{
         bodyFormData.set(name, docData[name]);
       }
+
     })
+    setUploadProgress(true)
     xhrPost('/document', bodyFormData, config).then((res) => {
       setDocumentData([...res.data.documents])
     })

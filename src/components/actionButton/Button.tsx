@@ -3,7 +3,7 @@ import React from 'react'
 import './buttons.scss'
 
 const Button = (props) => {
-  const {buttonType, displayText, type, onClick, className} = props
+  const { buttonType, displayText, type, onClick, className } = props
   return(
     <button 
       className={`btn btn-${type} ${className}`} 

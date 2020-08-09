@@ -57,12 +57,15 @@ class Document extends Component{
             documentData = next.documentData,
             documentDataLength = documentData.length,
             updatedNode = documentData[documentDataLength-1]
+
       this.api.forEachNode((node) => {
         rowData.push(node.data);
       });
+
       if(rowData.length === documentDataLength){
         let itemsToUpdate: String[] = [];
         const { isUploadedProgress, previewUrl } = updatedNode
+        
         this.api.forEachNodeAfterFilterAndSort(function(rowNode, index) {
           if(index === documentDataLength-1){
             var data = rowNode.data
@@ -101,7 +104,7 @@ class Document extends Component{
   }
 
   downloadLink = (val:any) => {
-    const {previewUrl, isUploadedProgress} = val.data
+    const { previewUrl, isUploadedProgress } = val.data
     return (
       isUploadedProgress !== 100 ? 
         `<span class="outer">
@@ -114,17 +117,18 @@ class Document extends Component{
 
   createAnchorNodes(apiUrl:String, link:String, index:any):Node{
     const div = document.createElement('div')
-    const downloadSpan = document.createElement('span')
-    downloadSpan.setAttribute('class', 'prev-down')
-    const download = document.createElement('a')
+        , downloadSpan = document.createElement('span')
+        , download = document.createElement('a')
+        , preview = document.createElement('a')
+    
     download.setAttribute('target', '_blank')
     download.setAttribute('href', `${apiUrl}${link}`)
     download.innerHTML = `Download file ${index ? index : ''} | `
-    downloadSpan.appendChild(download)
-    
-    const preview = document.createElement('a')
+    downloadSpan.setAttribute('class', 'prev-down')
     preview.addEventListener('click', () => this.showPreview(apiUrl, link))
     preview.innerHTML = `Preview file ${index ? index : ''}`
+    
+    downloadSpan.appendChild(download)
     downloadSpan.appendChild(preview)
     
     return div.appendChild(downloadSpan)
@@ -132,7 +136,8 @@ class Document extends Component{
 
   getPreviewUrls(previewUrl:any, val:any){
     const { apiUrl } = properties
-    const div = document.createElement('div')
+        , div = document.createElement('div')
+        
     if(previewUrl.length < 2){
       div.appendChild(this.createAnchorNodes(apiUrl, previewUrl[0], null))
     }else{
@@ -146,7 +151,7 @@ class Document extends Component{
 
   formatDate(dateStr){
     const nowDate = new Date(Number(dateStr.data.uploadDate))
-    const fixedPlace = (val) => {
+        , fixedPlace = (val) => {
       return val < 10 ? '0'+val : val
     }
     return `${fixedPlace(nowDate.getDate())}/${fixedPlace(nowDate.getMonth())}/${fixedPlace(nowDate.getFullYear())}`
@@ -164,6 +169,7 @@ class Document extends Component{
     return(
       <div className="page-container">
         <div className="document-container">
+
           <div className="ag-theme-alpine blotter" style={ {height: '580px', width: '100%'} }>
             <AgGridReact
               onGridReady={this.onGridReady}
@@ -179,18 +185,19 @@ class Document extends Component{
           </div>
 
           <UploadForm />
-          {this.state.file ? 
-            <div className="previewer">
-              <div className="background" onClick={this.hidePreview.bind(this)}></div>
-              <div className="preview-container">
-                <FileViewer
-                  key={Math.random().toString()}
-                  fileType={this.state.type}
-                  filePath={this.state.file}
-                  onError={this.onError}/>
-                </div>
-            </div> 
-            : undefined 
+
+          {
+            this.state.file && 
+              <div className="previewer">
+                <div className="background" onClick={this.hidePreview.bind(this)}></div>
+                <div className="preview-container">
+                  <FileViewer
+                    key={Math.random().toString()}
+                    fileType={this.state.type}
+                    filePath={this.state.file}
+                    onError={this.onError}/>
+                  </div>
+              </div> 
           }
         </div>
       </div>

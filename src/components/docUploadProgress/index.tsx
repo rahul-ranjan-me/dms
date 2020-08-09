@@ -1,4 +1,4 @@
-import React, {useContext, useState, Fragment} from 'react'
+import React, { useContext, useState, Fragment, useEffect } from 'react'
 import GlobalContext from '../globalState/globalContext'
 import properties from '../../properties'
 
@@ -9,8 +9,21 @@ interface DocUploadProgress {
 }
 
 const DocUploadProgress = () => {
-  const { documentData } = useContext(GlobalContext)
-  const [ showProgress, setShowProgress ] = useState('hide')
+  const { documentData, uploadProgress, setUploadProgress } = useContext(GlobalContext)
+      , [ showProgress, setShowProgress ] = useState('hide')
+   
+  useEffect(() => {
+    if(documentData && uploadProgress){
+      const { isUploadedProgress } = documentData[documentData.length-1]
+      if(isUploadedProgress === 100){
+        setShowProgress('show')
+        window.setTimeout(() => {
+          setShowProgress('hide')
+          setUploadProgress(false)
+        }, properties.progressNotificationTimeout)
+      }
+    }
+  })
 
   const switchState = () => {
     if(showProgress === 'hide'){
@@ -35,7 +48,7 @@ const DocUploadProgress = () => {
         <div className="file-upload-progress-button" onClick={() => switchState()}>Show upload progress</div>
 
         <div className={`upload-progress-widget ${showProgress}`}>
-          <span className="hide-progress" onClick={() => switchState()}>X</span>
+          { !uploadProgress && <span className="hide-progress" onClick={() => switchState()}>X</span> }
           <h2>File upload progress indicator</h2>
           
           <h3>File Name: <span>{name}</span></h3>
@@ -48,12 +61,12 @@ const DocUploadProgress = () => {
     )
   }
 
-  const showLoader = (isUploadedProgress:Number) => {
+  const showLoader = ( isUploadedProgress:Number ) => {
     return(
       <div className="progress-indicator">
         <span className="outer">
           <span className="inner" style={{width:`${isUploadedProgress}%`}}></span>
-          <em>{isUploadedProgress}%</em>
+          <em>{ isUploadedProgress }%</em>
         </span>    
       </div>
     )
@@ -61,7 +74,7 @@ const DocUploadProgress = () => {
 
   return(
     <Fragment>
-      {documentData && documentData.length ? progressIndicator() : null}
+      { uploadProgress && progressIndicator() }
     </Fragment>
   )
 }

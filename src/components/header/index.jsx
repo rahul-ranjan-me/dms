@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './header.scss'
 
@@ -13,7 +13,7 @@ const Header = (props) => {
 
   return(
     <header className="header">
-      <h1>MyFavoriteSite</h1>
+      <h1>Document Management System</h1>
       <ul>{props.pages.map(createTabs)}</ul>
     </header>
   )
