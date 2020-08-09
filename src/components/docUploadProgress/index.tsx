@@ -23,7 +23,7 @@ const DocUploadProgress = () => {
         }, properties.progressNotificationTimeout)
       }
     }
-  })
+  }, [documentData, uploadProgress, setUploadProgress])
 
   const switchState = () => {
     if(showProgress === 'hide'){
@@ -48,7 +48,7 @@ const DocUploadProgress = () => {
         <div className="file-upload-progress-button" onClick={() => switchState()}>Show upload progress</div>
 
         <div className={`upload-progress-widget ${showProgress}`}>
-          { !uploadProgress && <span className="hide-progress" onClick={() => switchState()}>X</span> }
+          { uploadProgress && <span className="hide-progress" onClick={() => switchState()}>X</span> }
           <h2>File upload progress indicator</h2>
           
           <h3>File Name: <span>{name}</span></h3>
